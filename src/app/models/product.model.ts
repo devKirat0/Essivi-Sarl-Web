@@ -3,5 +3,6 @@ export interface ProductModel{
   labelOfProduct: string;
   unitPrice: number;
   productQuantity: number;
-  category_id:number
+  category_id:number;
+  label:string;
 }
