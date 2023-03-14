@@ -61,11 +61,11 @@
               </div>
               <div class="form-group">
                 <label for="pu">Prix Unitaire</label>
-                <input type="number" class="form-control" id="pu" placeholder="Prix Unitaire..." formControlName="unitPrice">
+                <input type="number" class="form-control" id="pu" min="0" placeholder="Prix Unitaire..." formControlName="unitPrice">
               </div>
               <div class="form-group">
                 <label for="quantity">Quantité</label>
-                <input type="number" class="form-control" id="quantity" placeholder="Quantité du produit..." formControlName="productQuantity">
+                <input type="number" class="form-control" id="quantity" min="0" placeholder="Quantité du produit..." formControlName="productQuantity">
               </div>
               <div class="form-group mb-3">
                 <label for="inputGroupSelect01">Label de la catégorie</label>
@@ -101,11 +101,11 @@
               </div>
               <div class="form-group">
                 <label for="Pu2">Prix Unitaire</label>
-                <input type="number" class="form-control" id="Pu2" placeholder="Prix Unitaire..." formControlName="unitPrice">
+                <input type="number" class="form-control" id="Pu2" min="0" placeholder="Prix Unitaire..." formControlName="unitPrice">
               </div>
               <div class="form-group">
                 <label for="quantity2">Quantité</label>
-                <input type="number" class="form-control" id="quantity2" placeholder="Quantité du produit..." formControlName="productQuantity">
+                <input type="number" class="form-control" id="quantity2" min="0" placeholder="Quantité du produit..." formControlName="productQuantity">
               </div>
               <div class="form-group mb-3">
                 <label for="inputGroupSelect02">Label de la catégorie</label>
@@ -143,7 +143,7 @@
           </div>
           <div class="form-group">
             <label for="Addquantité">Quantité à ajouter</label>
-            <input type="number" class="form-control" id="Addquantité" placeholder="Quantité à ajouter..." formControlName="addproductQuantity">
+            <input type="number" class="form-control" id="Addquantité" min="0" placeholder="Quantité à ajouter..." formControlName="addproductQuantity">
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary" id="closeAdd">Ajouter</button>
