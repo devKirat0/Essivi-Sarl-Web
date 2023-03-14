@@ -39,4 +39,25 @@ export class CategoryService {
       })
     return valueCat;
   }
+
+  public updateCategory(category:CategoryModel){
+    console.log(category.id);
+    return this.http.put(`${environment.backendHost}/catgories/${category.id}`,{
+      id:category.id,
+      labelOfCat:category.labelOfCat
+    },{
+      headers: {
+        'Authorization': `${this.authenticationService.getSessionStorage().token_type} ${this.authenticationService.getSessionStorage().access_token}`
+      }
+    });
+  }public createCategory(category:CategoryModel){
+    return this.http.post(`${environment.backendHost}/catgories/`,{
+      id:0,
+      labelOfCat:category.labelOfCat
+    },{
+      headers: {
+        'Authorization': `${this.authenticationService.getSessionStorage().token_type} ${this.authenticationService.getSessionStorage().access_token}`
+      }
+    });
+  }
 }
