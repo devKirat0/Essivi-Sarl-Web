@@ -25,4 +25,31 @@ export class ProductService {
     //console.log(values)
     return values;
   }
+
+  public updateProduct(product:ProductModel){
+    return this.http.put(`${environment.backendHost}/products/{id}?idProduct=${product.idProduct}`,{
+      idProduct:product.idProduct,
+      labelOfProduct:product.labelOfProduct,
+      unitPrice: product.unitPrice,
+      productQuantity: product.productQuantity,
+      category_id: product.category_id
+    },{
+      headers: {
+        'Authorization': `${this.authenticationService.getSessionStorage().token_type} ${this.authenticationService.getSessionStorage().access_token}`
+      }
+    });
+  }
+
+  public createProduct(product:ProductModel){
+    return this.http.post(`${environment.backendHost}/products/`,{
+      labelOfProduct:product.labelOfProduct,
+      unitPrice: product.unitPrice,
+      productQuantity: product.productQuantity,
+      category_id: product.category_id
+    },{
+      headers:{
+        'Authorization': `${this.authenticationService.getSessionStorage().token_type} ${this.authenticationService.getSessionStorage().access_token}`
+      }
+    })
+  }
 }
