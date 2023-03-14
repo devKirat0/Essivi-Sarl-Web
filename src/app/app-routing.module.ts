@@ -16,7 +16,7 @@ const routes: Routes = [
     path:"login",component:AuthenticationComponent
   },
   {
-    path:"confirm",redirectTo:"/template/clients",pathMatch:"full"
+    path:"confirm",redirectTo:"/template/listeDesCommercials",pathMatch:"full"
   },
   {
     path:"template",component:TemplateComponent,children:[

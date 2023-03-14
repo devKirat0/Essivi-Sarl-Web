@@ -37,18 +37,7 @@ export class ProductsComponent {
     this.dtOptions = {
       pagingType: 'full_numbers'
     }
-    this.categories = (await this.categoryService.getAllCategory()).sort((a, b)=>{
-      const lastNameComparison = a.labelOfCat.localeCompare(b.labelOfCat);
-      if (lastNameComparison !== 0) {
-        return lastNameComparison;
-      }
-      return a.labelOfCat.localeCompare(b.labelOfCat);
-    });
-    //console.log(this.categories)
-    this.products = await this.productService.getAllProduct();
-    this.products.forEach(value => {
-      value.label = this.categories.find(r=> r.id == value.category_id)!.labelOfCat;
-    });
+    await this.getAndReload();
     jQuery.noConflict();
     this.dtTrigger.next(null);
     //console.log(this.categories.find(r=>r.id==2));
@@ -68,9 +57,8 @@ export class ProductsComponent {
     this.productService.updateProduct(product).subscribe({
       next:async (value) => {
         this.toastr.success('Mise à jour effectuée avec succès');
+        await  this.getAndReload();
         $('#exampleModalLong').modal('hide');
-        this.categories = await this.categoryService.getAllCategory();
-        this.products = await this.productService.getAllProduct();
       },
       error:(error)=>{
         this.toastr.error('Erreur lors de la mise à jour');
@@ -89,7 +77,7 @@ export class ProductsComponent {
       addproductQuantity:null
     })
   }
-  resetFormAddQuantity(){
+  resetFormCreate(){
     this.updateFormGroup.patchValue({
       idProduct:null,
       labelOfProduct: null,
@@ -104,7 +92,25 @@ export class ProductsComponent {
   }
 
   createProduct() {
-    console.log(this.updateFormGroup.value)
+    console.log(this.updateFormGroup.value);
+    let product:ProductModel = {
+      idProduct: this.updateFormGroup.value.idProduct,
+      labelOfProduct: this.updateFormGroup.value.labelOfProduct,
+      unitPrice: this.updateFormGroup.value.unitPrice,
+      productQuantity: this.updateFormGroup.value.productQuantity + this.updateFormGroup.value.addproductQuantity,
+      category_id: this.updateFormGroup.value.category_id,
+      label: this.updateFormGroup.value.label
+    };
+    this.productService.createProduct(product).subscribe({
+      next: async (value) => {
+        this.toastr.success('Ajout effectuée avec succès');
+        await this.getAndReload();
+        $('#exampleModalLong2').modal('hide');
+      },
+      error: (err)=>{
+        this.toastr.error('Erreur lors de l\'ajout');
+      }
+    });
   }
 
   addQuantity() {
@@ -120,14 +126,26 @@ export class ProductsComponent {
     this.productService.updateProduct(product).subscribe({
       next:async (value) => {
         this.toastr.success('Ajout effectuée avec succès');
+        await this.getAndReload();
         $('#addQuantity').modal('hide');
-        this.categories = await this.categoryService.getAllCategory();
-        this.products = await this.productService.getAllProduct();
-        this.products.forEach(r=>console.log(r.label));
       },
       error:(error)=>{
         this.toastr.error('Erreur lors de l\'ajout');
       }
     })
+  }
+  public async getAndReload() {
+    this.categories = await this.categoryService.getAllCategory()
+    console.log(this.categories)
+    this.products = (await this.productService.getAllProduct()).sort((a, b) => {
+      const lastNameComparison = a.labelOfProduct.localeCompare(b.labelOfProduct);
+      if (lastNameComparison !== 0) {
+        return lastNameComparison;
+      }
+      return a.labelOfProduct.localeCompare(b.labelOfProduct);
+    });
+    this.products.forEach(value => {
+      value.label = this.categories.find(r => r.id == value.category_id)!.labelOfCat;
+    });
   }
 }
