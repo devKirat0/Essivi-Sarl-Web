@@ -58,23 +58,37 @@
               <div class="form-group">
                 <label for="lib">Libellé du Produit</label>
                 <input type="text" class="form-control" id="lib" placeholder="Libelle..." formControlName="labelOfProduct">
+                <div *ngIf="updateFormGroup.get('labelOfProduct')!.invalid && (updateFormGroup.get('labelOfProduct')!.dirty || updateFormGroup.get('labelOfProduct')!.touched)">
+                  <div *ngIf="updateFormGroup.get('labelOfProduct')!.hasError('required')" class="text-danger">Le libellé du produit est obligatoire</div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="pu">Prix Unitaire</label>
                 <input type="number" class="form-control" id="pu" min="0" placeholder="Prix Unitaire..." formControlName="unitPrice">
+                <div *ngIf="updateFormGroup.get('unitPrice')!.invalid && (updateFormGroup.get('unitPrice')!.dirty || updateFormGroup.get('unitPrice')!.touched)">
+                  <div *ngIf="updateFormGroup.get('unitPrice')!.hasError('required')" class="text-danger">Le prix unitaire est obligatoire et doit être un nombre</div>
+                  <div *ngIf="updateFormGroup.get('unitPrice')!.hasError('min')" class="text-danger">Le prix unitaire doit être supérieur à 0</div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="quantity">Quantité</label>
                 <input type="number" class="form-control" id="quantity" min="0" placeholder="Quantité du produit..." formControlName="productQuantity">
+                <div *ngIf="updateFormGroup.get('productQuantity')!.invalid && (updateFormGroup.get('productQuantity')!.dirty || updateFormGroup.get('productQuantity')!.touched)">
+                  <div *ngIf="updateFormGroup.get('productQuantity')!.hasError('required')" class="text-danger">La quantité du produit est obligatoire et doit être un nombre</div>
+                  <div *ngIf="updateFormGroup.get('productQuantity')!.hasError('min')" class="text-danger">La quantité du produit doit être supérieur à 0</div>
+                </div>
               </div>
               <div class="form-group mb-3">
                 <label for="inputGroupSelect01">Label de la catégorie</label>
                 <select class="custom-select" id="inputGroupSelect01" formControlName="category_id" (change)="setLabel()">
                   <option *ngFor="let categorie of categories" value="{{categorie.id}}">{{categorie.labelOfCat}}</option>
                 </select>
+                <div *ngIf="updateFormGroup.get('category_id')!.invalid && (updateFormGroup.get('category_id')!.dirty || updateFormGroup.get('category_id')!.touched)">
+                  <div *ngIf="updateFormGroup.get('category_id')!.hasError('required')" class="text-danger">Le label de la catégorie est obligatoire</div>
+                </div>
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" id="closeUpdate">Mettre à jour</button>
+                <button [disabled]="!(this.updateFormGroup.controls['labelOfProduct'].valid && this.updateFormGroup.controls['unitPrice'].valid && this.updateFormGroup.controls['productQuantity'].valid && this.updateFormGroup.controls['category_id'].valid)" type="submit" class="btn btn-primary" id="closeUpdate">Mettre à jour</button>
               </div>
             </form>
           </div>
@@ -98,23 +112,37 @@
               <div class="form-group">
                 <label for="lib2">Libellé du Produit</label>
                 <input type="text" class="form-control" id="Lib2" placeholder="Libelle..." formControlName="labelOfProduct">
+                <div *ngIf="updateFormGroup.get('labelOfProduct')!.invalid && (updateFormGroup.get('labelOfProduct')!.dirty || updateFormGroup.get('labelOfProduct')!.touched)">
+                  <div *ngIf="updateFormGroup.get('labelOfProduct')!.hasError('required')" class="text-danger">Le libellé du produit est obligatoire</div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="Pu2">Prix Unitaire</label>
                 <input type="number" class="form-control" id="Pu2" min="0" placeholder="Prix Unitaire..." formControlName="unitPrice">
+                <div *ngIf="updateFormGroup.get('unitPrice')!.invalid && (updateFormGroup.get('unitPrice')!.dirty || updateFormGroup.get('unitPrice')!.touched)">
+                  <div *ngIf="updateFormGroup.get('unitPrice')!.hasError('required')" class="text-danger">Le prix unitaire est obligatoire et doit être un nombre</div>
+                  <div *ngIf="updateFormGroup.get('unitPrice')!.hasError('min')" class="text-danger">Le prix unitaire doit être supérieur à 0</div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="quantity2">Quantité</label>
                 <input type="number" class="form-control" id="quantity2" min="0" placeholder="Quantité du produit..." formControlName="productQuantity">
+                <div *ngIf="updateFormGroup.get('productQuantity')!.invalid && (updateFormGroup.get('productQuantity')!.dirty || updateFormGroup.get('productQuantity')!.touched)">
+                  <div *ngIf="updateFormGroup.get('productQuantity')!.hasError('required')" class="text-danger">La quantité du produit est obligatoire et doit être un nombre</div>
+                  <div *ngIf="updateFormGroup.get('productQuantity')!.hasError('min')" class="text-danger">La quantité du produit doit être supérieur à 0</div>
+                </div>
               </div>
               <div class="form-group mb-3">
                 <label for="inputGroupSelect02">Label de la catégorie</label>
                 <select class="custom-select" id="inputGroupSelect02" formControlName="category_id" (change)="setLabel()">
                   <option *ngFor="let categorie of categories" value="{{categorie.id}}">{{categorie.labelOfCat}}</option>
                 </select>
+                <div *ngIf="updateFormGroup.get('category_id')!.invalid && (updateFormGroup.get('category_id')!.dirty || updateFormGroup.get('category_id')!.touched)">
+                  <div *ngIf="updateFormGroup.get('category_id')!.hasError('required')" class="text-danger">Le label de la catégorie est obligatoire</div>
+                </div>
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" id="closeCreate">Ajouter</button>
+                <button [disabled]="!(this.updateFormGroup.controls['labelOfProduct'].valid && this.updateFormGroup.controls['unitPrice'].valid && this.updateFormGroup.controls['productQuantity'].valid && this.updateFormGroup.controls['category_id'].valid)" type="submit" class="btn btn-primary" id="closeCreate">Ajouter</button>
               </div>
             </form>
           </div>
@@ -144,9 +172,13 @@
           <div class="form-group">
             <label for="Addquantité">Quantité à ajouter</label>
             <input type="number" class="form-control" id="Addquantité" min="0" placeholder="Quantité à ajouter..." formControlName="addproductQuantity">
+            <div *ngIf="updateFormGroup.get('addproductQuantity')!.invalid && (updateFormGroup.get('addproductQuantity')!.dirty || updateFormGroup.get('addproductQuantity')!.touched)">
+              <div *ngIf="updateFormGroup.get('addproductQuantity')!.hasError('required')" class="text-danger">La quantité à ajouter est obligatoire et doit être un nombre</div>
+              <div *ngIf="updateFormGroup.get('addproductQuantity')!.hasError('min')" class="text-danger">La quantité à ajouter doit être supérieur à 0</div>
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" id="closeAdd">Ajouter</button>
+            <button [disabled]="!this.updateFormGroup.controls['addproductQuantity'].valid" type="submit" class="btn btn-primary" id="closeAdd">Ajouter</button>
           </div>
         </form>
       </div>

@@ -4,6 +4,9 @@ import {ChartService} from "../../services/chart.service";
 import {NumberOfPersonPerLabelModel} from "../../models/numberOfPersonPerLabel.model";
 import {User} from "../../models/user.model";
 import formatters from "chart.js/dist/core/core.ticks";
+import {CategoryService} from "../../services/category.service";
+import {UserService} from "../../services/user.service";
+import {CustomerService} from "../../services/customer.service";
 
 @Component({
   selector: 'app-statistics',
@@ -13,6 +16,10 @@ import formatters from "chart.js/dist/core/core.ticks";
 export class StatisticsComponent {
 
   result:any;
+  ca:number = 0;
+  totalclient:number = 0;
+  totalcategories:number = 0;
+  utilisateurs:number = 0;
   pieLabelChart:any =[];
   pieLabelChartCat:any =[];
   lineLabelChart:any =[];
@@ -24,10 +31,27 @@ export class StatisticsComponent {
   chartBar!: Chart<"bar",number[],unknown>;
   chartLine!: Chart<"line",number[],unknown>;
   chartLine2!: Chart<"bar",number[],unknown>;
-  constructor(private chartService:ChartService,private zone:NgZone) {
+  constructor(private chartService:ChartService,private zone:NgZone,private categoryService:CategoryService,private userService:UserService,private customerService:CustomerService) {
     Chart.register(...registerables);
   }
   ngOnInit(){
+    this.chartService.caPerMonth().then(res =>{
+        res?.forEach(value => {
+          this.ca+=value.chiffre_affaire;
+        })
+      }
+    );
+    this.customerService.getAllCustomers().subscribe((value)=>{
+      this.totalclient = value.length
+    })
+    this.categoryService.getAllCategory().then(res =>{
+      res?.forEach(value => {
+        this.totalcategories += 1;
+      })
+    });
+    this.userService.getAllUsers().subscribe((value) => {
+      this.utilisateurs = value.length
+    });
     this.chartService.numberOfPersonPerLabel().then(res=>{
       this.result = res;
       res?.forEach((value) => {

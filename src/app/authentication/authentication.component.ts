@@ -23,11 +23,6 @@ export class AuthenticationComponent {
       password: null,
     });
   }
-  /*@HostListener('window:popstate', ['$event'])
-  onPopState(event: { preventDefault: () => void; }) {
-    // Empêche la navigation arrière
-    event.preventDefault();
-  }*/
   public login() {
     let username = this.authenticationGroup.value.username;
     let password = this.authenticationGroup.value.password;
@@ -36,7 +31,7 @@ export class AuthenticationComponent {
     }else{
       this.authenticationService.login(username,password).subscribe((value) => {
         if(value.is_active){
-          if(value.label == 'Agent'){
+          if(value.label == 'Agen t'){
             this.toastr.warning(`Vous n'avez pas accès à l'application`)
           }else{
             this.authenticationService.setSessionStorage(value);

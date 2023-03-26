@@ -3,7 +3,7 @@ import {ProductService} from "../../services/product.service";
 import {Subject} from "rxjs";
 import {ProductModel} from "../../models/product.model";
 import {AuthenticationService} from "../../services/authentication.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CategoryService} from "../../services/category.service";
 import {CategoryModel} from "../../models/category.model";
 import {ToastrService} from "ngx-toastr";
@@ -26,12 +26,12 @@ export class ProductsComponent {
   async ngOnInit(){
     this.updateFormGroup = this.fb.group({
       idProduct:null,
-      labelOfProduct: null,
-      unitPrice: null,
-      productQuantity: null,
-      category_id:null,
+      labelOfProduct: [null,[Validators.required]],
+      unitPrice: [null, [Validators.required, Validators.min(1)]],
+      productQuantity: [null, [Validators.required, Validators.min(1)]],
+      category_id:[null,[Validators.required]],
       label:null,
-      addproductQuantity:null,
+      addproductQuantity:[null, [Validators.required, Validators.min(1)]],
     });
 
     this.dtOptions = {
